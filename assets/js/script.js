@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", function(){
         } else {
             let gameType = this.getAttribute("data-type");
             alert(`You clicked ${gameType}`);
-        }
-    })
-  }
-})
+        } // close of if-else statement
+    }) // close of button event listener
+  } // close of loop across buttons
+}) // close of content load event listener
 
 function runGame() {
 
