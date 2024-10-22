@@ -18,6 +18,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }); // close of button event listener
   } // close of loop across buttons
 
+ // The following is to make "enter" work for submission
+ document.getElementById('answer-box').addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
+        checkAnswer();
+    }
+ })
+
   // default game once page loads will be addition
   runGame("addition");
 
@@ -29,6 +36,12 @@ document.addEventListener("DOMContentLoaded", function() {
  * and after the user's answer has been processed. 
  */
 function runGame(gameType) {
+
+  document.getElementById('answer-box').value = "";
+  // The curser is in the submit space - use focus below
+  // I deactivated it because it was annoyingly moving to the answer space, not letting me to enter the code 
+  // document.getElementById('answer-box').focus();
+
   let num1 =Math.floor(Math.random() * 25) + 1;
   let num2 =Math.floor(Math.random() * 25) + 1;
 
@@ -36,6 +49,8 @@ function runGame(gameType) {
     displayAdditionQuestion(num1, num2);
   } else if (gameType ==="multiply") {
     displayMultiplyQuestion(num1, num2);
+  } else if (gameType === "subtract") {
+    displaySubtractQuestion(num1, num2);
   } else {
     alert(`Unknown game type: ${gameType}`);
     // below will make javascript to stop.
@@ -77,6 +92,8 @@ function calculatedCorrectAnswer() {
     return [operand1 + operand2, "addition"];
   } else if (operator === "x") {
     return [operand1 * operand2, "multiply"];
+  } else if (operator === "-") {
+    return [operand1 - operand2, "subtract"];
   } else {
     alert(`unimplemented operator ${operator}`);
     throw `unimplemented operator ${operator}. Aborting.`;
@@ -100,13 +117,22 @@ function incrementWrongAnswer() {
 }
 
 function displayAdditionQuestion(operand1, operand2) {
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;
-    document.getElementById('operator').textContent = "+";
+  document.getElementById('operand1').textContent = operand1;
+  document.getElementById('operand2').textContent = operand2;
+  document.getElementById('operator').textContent = "+";
 }
 
-function displaySubtractQuestion() {
-
+function displaySubtractQuestion(operand1, operand2) {
+  document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+  document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
+  // if (operand1 >= operand2) {
+  //   document.getElementById('operand1').textContent = operand1;
+  //   document.getElementById('operand2').textContent = operand2;  
+  // } else {
+  //   document.getElementById('operand1').textContent = operand2;
+  //   document.getElementById('operand2').textContent = operand1;
+  // }
+  document.getElementById('operator').textContent = "-";
 }
 
 function displayMultiplyQuestion(operand1, operand2) {
