@@ -52,9 +52,10 @@ function runGame(gameType) {
   } else if (gameType === "subtract") {
     displaySubtractQuestion(num1, num2);
   } else {
-    alert(`Unknown game type: ${gameType}`);
-    // below will make javascript to stop.
-    throw `Unknown game type: ${gameType}. Aborting!`;
+    displayDivisionQuestion(num1, num2);
+    // alert(`Unknown game type: ${gameType}`);
+    // // below will make javascript to stop.
+    // throw `Unknown game type: ${gameType}. Aborting!`;
   }
 }
 
@@ -95,8 +96,9 @@ function calculatedCorrectAnswer() {
   } else if (operator === "-") {
     return [operand1 - operand2, "subtract"];
   } else {
-    alert(`unimplemented operator ${operator}`);
-    throw `unimplemented operator ${operator}. Aborting.`;
+    return [Math.round(operand1 / operand2), "division"];
+    // alert(`unimplemented operator ${operator}`);
+    // throw `unimplemented operator ${operator}. Aborting.`;
   }
 }
 
@@ -139,4 +141,10 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;
     document.getElementById('operator').textContent = "x";
+}
+
+function displayDivisionQuestion(operand1 , operand2) {
+  document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+  document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
+  document.getElementById('operator').textContent = "/";
 }
